@@ -1,4 +1,4 @@
-package com.zogik.shoescompose.home.component
+package com.zogik.shoescompose.utils
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,21 +13,30 @@ import com.zogik.shoescompose.Route
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(title: String, route: Route) {
+fun TopBar(
+    title: String,
+    route: Route,
+    backPressed: () -> Unit = {},
+    optionClick: () -> Unit = {},
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(title)
         },
         navigationIcon = {
             if (route != Route.HOME) {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    backPressed.invoke()
+                }) {
                     Icon(painter = painterResource(R.drawable.ic_backbutton), "back")
                 }
             }
         },
         actions = {
             if (route == Route.HOME) {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    optionClick.invoke()
+                }) {
                     Icon(
                         painter = painterResource(R.drawable.baseline_person_pin_24),
                         contentDescription = "profile",

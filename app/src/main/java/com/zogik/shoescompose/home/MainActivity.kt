@@ -1,5 +1,6 @@
 package com.zogik.shoescompose.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,15 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zogik.shoescompose.Route
 import com.zogik.shoescompose.Shoes
+import com.zogik.shoescompose.detail.DetailActivity
 import com.zogik.shoescompose.home.component.BoxItem
 import com.zogik.shoescompose.home.component.Search
-import com.zogik.shoescompose.home.component.TopBar
 import com.zogik.shoescompose.ui.theme.ShoesComposeTheme
+import com.zogik.shoescompose.utils.TopBar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +54,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun CardItem(shoesList: List<Shoes>) {
+    val context = LocalContext.current
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -63,7 +68,11 @@ private fun CardItem(shoesList: List<Shoes>) {
         ),
     ) {
         items(shoesList) {
-            BoxItem(Modifier, it) {}
+            BoxItem(Modifier, it) {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_DATA, it)
+                context.startActivity(intent)
+            }
         }
     }
 }
