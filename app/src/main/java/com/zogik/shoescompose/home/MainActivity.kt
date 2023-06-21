@@ -26,8 +26,9 @@ import com.zogik.shoescompose.Shoes
 import com.zogik.shoescompose.detail.DetailActivity
 import com.zogik.shoescompose.home.component.BoxItem
 import com.zogik.shoescompose.home.component.Search
+import com.zogik.shoescompose.profile.ProfileActivity
+import com.zogik.shoescompose.shared.TopBar
 import com.zogik.shoescompose.ui.theme.ShoesComposeTheme
-import com.zogik.shoescompose.utils.TopBar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +37,16 @@ class MainActivity : ComponentActivity() {
             ShoesComposeTheme {
                 val viewModel = viewModel<ViewModel>()
                 val shoesFilter by viewModel.shoes.collectAsState()
+                val context = LocalContext.current
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     Column {
-                        TopBar(Route.HOME.title, Route.HOME)
+                        TopBar(Route.HOME.title, Route.HOME, optionClick = {
+                            startActivity(Intent(context, ProfileActivity::class.java))
+                        })
                         Search(Modifier, viewModel)
                         CardItem(shoesFilter)
                     }

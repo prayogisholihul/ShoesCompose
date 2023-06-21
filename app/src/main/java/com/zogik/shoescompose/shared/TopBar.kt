@@ -1,4 +1,4 @@
-package com.zogik.shoescompose.utils
+package com.zogik.shoescompose.shared
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,7 +39,7 @@ fun TopBar(
                 }) {
                     Icon(
                         painter = painterResource(R.drawable.baseline_person_pin_24),
-                        contentDescription = "profile",
+                        contentDescription = "about_page",
                     )
                 }
             }

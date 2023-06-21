@@ -1,4 +1,4 @@
-package com.zogik.shoescompose.utils
+package com.zogik.shoescompose.shared
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
